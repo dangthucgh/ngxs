@@ -1,0 +1,42 @@
+<div class="col">
+  <div *ngIf="students">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Address</th>
+        <th>Class</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of students| async; let i = index">
+        <td>{{ i+1 }}</td>
+        <td>{{ student.name }}</td>
+        <td>{{ student.birthday| date:"dd/MM/yyyy" }}</td>
+        <td>{{ student.address }}</td>
+        <td>{{ student.clas }}</td>
+
+        <td>
+          <button class="btn btn-primary" (click)="editStudent(student)">Edit</button>
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="deleteStudent(student.id)">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ul class="pagination justify-content-center">
+      <li class="page-item"><a (click)="previousClick()" class="page-link">Previous</a></li>
+      <li *ngFor='let index of pageIndexes' class="page-item" [ngClass]="active(index)">
+        <a (click)="getPaginationWithIndex(index)" class="page-link">
+          {{index + 1}}
+        </a>
+      </li>
+      <li class="page-item"><a (click)="nextClick()" class="page-link">Next</a></li>
+    </ul>
+  </div>
+</div>
